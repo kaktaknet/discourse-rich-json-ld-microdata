@@ -70,6 +70,17 @@ module DiscourseRichMicrodata
         image_url.present? && image_url != base_url
       end
 
+      def twitter_image
+        case detect_page_type
+        when :topic
+          data[:image_url]
+        when :user
+          data[:avatar_url]
+        else
+          nil
+        end
+      end
+
       def twitter_site_handle
         handle = SiteSetting.rich_microdata_social_twitter
         return nil if handle.blank?
